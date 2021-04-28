@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文将从环视和量词来学习正则表达式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从环视看正则表达式">
+<meta property="og:url" content="http://example.com/2021/04/25/reg/index.html">
+<meta property="og:site_name" content="Montyxu的个人博客">
+<meta property="og:description" content="本文将从环视和量词来学习正则表达式。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/image1.png">
+<meta property="og:image" content="http://example.com/images/image2.png">
+<meta property="og:image" content="http://example.com/images/image3.png">
+<meta property="og:image" content="http://example.com/images/image4.png">
+<meta property="og:image" content="http://example.com/images/image5.png">
+<meta property="og:image" content="http://example.com/images/image6.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/12887584/1617000925408-f8d2c23b-5a8c-4222-91b7-74ddb906159a.png?x-oss-process=image/resize,w_1500">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/12887584/1617001259579-83040cad-2d43-47ec-ac1b-6f92fd73ee73.png?x-oss-process=image/resize,w_1500">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/12887584/1617001235133-a9cad7db-4fa7-46c9-b290-78759dbf0969.png?x-oss-process=image/resize,w_1500">
+<meta property="article:published_time" content="2021-04-25T07:14:25.000Z">
+<meta property="article:modified_time" content="2021-04-28T07:46:27.318Z">
+<meta property="article:author" content="Montyxu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image1.png">
+
+<link rel="canonical" href="http://example.com/2021/04/25/reg/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>从环视看正则表达式 | Montyxu的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Montyxu的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">每天进步一点点</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/reg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Montyxu">
+      <meta itemprop="description" content="严于律己，宽以待人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Montyxu的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从环视看正则表达式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-25 15:14:25" itemprop="dateCreated datePublished" datetime="2021-04-25T15:14:25+08:00">2021-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-28 15:46:27" itemprop="dateModified" datetime="2021-04-28T15:46:27+08:00">2021-04-28</time>
+              </span>
+
+          
+            <div class="post-description">本文将从环视和量词来学习正则表达式。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="从环视看正则表达式"><a href="#从环视看正则表达式" class="headerlink" title="从环视看正则表达式"></a>从环视看正则表达式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?&lt;&#x3D;\d)(?&#x3D;(\d&#123;3&#125;)+$)</span><br></pre></td></tr></table></figure>
+
+<p>观察这个表达式，可以看到主要由三部分组成</p>
+<h2 id="1-环视"><a href="#1-环视" class="headerlink" title="1. 环视"></a>1. 环视</h2><h3 id="顺序环视与逆序环视："><a href="#顺序环视与逆序环视：" class="headerlink" title="顺序环视与逆序环视："></a>顺序环视与逆序环视：</h3><p>正则表达式的匹配是从左至右的，如果要判断某个位置的右边是否满足某个条件，则是顺序环视，反之，如果要判断某个位置的左边是否满足某个条件，则是逆序环视。</p>
+<p><strong>环视匹配的是位置，不会消耗字符 举例》》》》</strong></p>
+<p>表达式：</p>
+<p>肯定的顺序环视：<code>(?=xxx)</code></p>
+<p>否定的顺序环视：<code>(?!xxx)</code></p>
+<p>逆序环视：<code>(?&lt;=xxx)</code></p>
+<p>否定的逆序环视：<code>(?&lt;!xxx)</code></p>
+<p>以排队为例，通俗地解释环视的含义<br><img src="/images/image1.png" alt="image1.png"></p>
+<p>X 只记得他后面是 C 同学，因此，他需要先找到 C，然后站在 C 的前面即可</p>
+<p>用正则表达式可以表示为：<code>(?=C)</code></p>
+<p>首先我们需要知道<strong>环视都是以<code>(?</code>作为开头的，然后接下来的一到两个符号表明是那种环视，再然后就是需要满足的条件，最后是一个<code>)</code>表示结束。<code>(?=条件)</code>可以这样理解，<code>?</code>表示疑问，<code>=</code>表示是否满足匹配。也就是当前位置是否满足给出的条件。</strong></p>
+<p><img src="/images/image2.png" alt="image2.png"></p>
+<p>X 不想站在 C 同学的前面，其他任何位置都可以</p>
+<p>用正则表达式可以表示为：<code>(?!C)</code></p>
+<p><img src="/images/image3.png" alt="image3.png"></p>
+<p>X 只记得他的前面是 C 同学，因此，他需要找到 C，然后站到 C 的后面即可</p>
+<p>用正则表达式可以表示为：<code>(?&lt;C)</code></p>
+<p><strong><code>(?&lt;=条件)</code>可以这样理解，<code>?</code>表示疑问，<code>&lt;</code>表示方向是当前位置的左边，<code>=</code>表示是否满足匹配。也就是当前位置的左边是否满足给出的条件。</strong></p>
+<p><img src="/images/image4.png" alt="image4.png"></p>
+<p>X 不想站 C 同学站在他的前面，其他同学都可以，因此，他可以找一个不是 C 同学后面的位置站</p>
+<p>用正则表达式可以表示为：<code>(?&lt;!C)</code></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>千分位的处理：给数字的千分位加逗号</p>
+<p>以 123456789 为例</p>
+<p>思路：我们需要匹配一些位置来放置逗号，什么位置呢？即<strong>从后往前，每隔三位数的位置，并且该位置的左边必须要有数字。</strong></p>
+<p>首先写一个可以匹配三位数的位置，我们可以运用前面介绍的肯定的顺序环视来写，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?&#x3D;\d&#123;3&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/image5.png" alt="image5.png"></p>
+<p>这样匹配出来的位置有 7 个，显然，有一些匹配出来的位置不是我们想要的，例如数字 1 的前面位置、4 跟 5 之间、5 跟 6 之间等等，那么如何排除我们非预期内的位置呢？不妨试试把<strong>字符串的结尾匹配</strong>加入进来，然后看看匹配后的结果。</p>
+<p><img src="/images/image6.png" alt="image6.png"></p>
+<p>把字符串结尾的限制加入进来后，我们发现确实过滤了很多我们不需要的位置，但是目前的结果仍然是不对的，比如预期的 3 和 4 之间的位置没有匹配出来，那应该如何处理呢？这时候我们再回顾一下我们的问题，找千分位，也就是从数字的末尾开始，每隔三位即第 3 位、第 6 位、第 9 位前面应该加上逗号，这些需要匹配的位置都是 3 的倍数，因此我们可以用正则表达式的量词来解决这个问题。+作用于前面用括号括起来的(\d{3})，表示三位数字可以重复 1 次或多次。加上量词后来看下结果。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12887584/1617000925408-f8d2c23b-5a8c-4222-91b7-74ddb906159a.png?x-oss-process=image/resize,w_1500" alt="image.png"></p>
+<p>可以看到目前的结果基本是我们预期内的了，但还需要注意一点的是，匹配出来的位置前面必须要有数字。运用前面介绍的环视，很容易可以想到肯定的逆序环视，即我需要匹配这样一个位置，该位置的左边必须是数字，即<code>(?&lt;=\d)</code>. 这样便可以过滤掉开头的位置了。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12887584/1617001259579-83040cad-2d43-47ec-ac1b-6f92fd73ee73.png?x-oss-process=image/resize,w_1500" alt="image.png"></p>
+<p>除了运用肯定的逆序环视可以过滤开头的位置，我们还可以用 <code>\B</code> 来处理，<code>\B</code> 是用来匹配不是单词开头或结束的位置，相比于 <code>(?&lt;=\d)</code> 更为简洁些。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12887584/1617001235133-a9cad7db-4fa7-46c9-b290-78759dbf0969.png?x-oss-process=image/resize,w_1500" alt="image.png"></p>
+<h2 id="2-量词"><a href="#2-量词" class="headerlink" title="2. 量词"></a>2. 量词</h2><p><strong>正则表达式默认是贪婪模式，量词都会尽可能地重复多次。</strong></p>
+<p><strong>懒惰模式： 在量词后面加一个</strong> <strong><code>?</code> ,</strong> 所以匹配模式变为 <code>*?</code> 或 <code>+?</code>，甚至将 <code>&#39;?&#39;</code> 变为 <code>??</code>。</p>
+<p>工具</p>
+<p>正则表达式可视化工具：<a target="_blank" rel="noopener" href="https://jex.im/regulex">https://jex.im/regulex</a></p>
+<p>练习正则表达式的网站：<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a></p>
+<p>手机号格式化</p>
+<p>举另外一个小例子，例如现在需要将手机号码 xxxxxxxxxxx 格式化为 xxx-xxxx-xxxx 的形式，假设输入的手机号是合法的（11 位），我们该如何格式化呢？</p>
+<p>不难发现，有两个解题思路，第一种，最笨的就是把 11 位数字分成三部分，即按顺序分别匹配三位数字、四位数字、四位数字，并将每部分后面添加一个‘-’，就可以完成我们的格式化了</p>
+<p>第二种，找位置，分别找到需要分隔的位置，然后将‘-’插进去</p>
+<p>下面就来依次来看看这两个方法吧</p>
+<p>匹配字符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#39;13888888888&#39;.replace(&#x2F;^(\d&#123;3&#125;)(\d&#123;4&#125;)(\d&#123;4&#125;)&#x2F;g, &#39;$1-$2-$3&#39;);</span><br><span class="line">&#x2F;&#x2F;&quot;138-8888-8888&quot;</span><br><span class="line">&#39;13888888888&#39;.replace(&#x2F;(?&#x3D;(\d&#123;4&#125;)+$)&#x2F;g, &#39;-&#39;);</span><br><span class="line">&#x2F;&#x2F;&quot;138-8888-8888&quot;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/15/first-blog/" rel="prev" title="first blog">
+      <i class="fa fa-chevron-left"></i> first blog
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E7%8E%AF%E8%A7%86%E7%9C%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">从环视看正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E8%A7%86"><span class="nav-number">1.1.</span> <span class="nav-text">1. 环视</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E7%8E%AF%E8%A7%86%E4%B8%8E%E9%80%86%E5%BA%8F%E7%8E%AF%E8%A7%86%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">顺序环视与逆序环视：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%87%8F%E8%AF%8D"><span class="nav-number">1.2.</span> <span class="nav-text">2. 量词</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Montyxu</p>
+  <div class="site-description" itemprop="description">严于律己，宽以待人</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Montyxu</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+</body>
+</html>
