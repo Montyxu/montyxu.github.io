@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-30 17:40:21 / 修改时间：17:54:29" itemprop="dateCreated datePublished" datetime="2021-04-30T17:40:21+08:00">2021-04-30</time>
+              <time title="创建时间：2021-04-30 17:40:21 / 修改时间：17:58:19" itemprop="dateCreated datePublished" datetime="2021-04-30T17:40:21+08:00">2021-04-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-30 17:33:49 / 修改时间：17:38:37" itemprop="dateCreated datePublished" datetime="2021-04-30T17:33:49+08:00">2021-04-30</time>
+              <time title="创建时间：2021-04-30 17:33:49 / 修改时间：17:59:11" itemprop="dateCreated datePublished" datetime="2021-04-30T17:33:49+08:00">2021-04-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,20 +281,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>js 中数组有一个排序方法叫 sort(),  sort() 方法有如下几个特性：</p>
+          <p>js 中数组有一个排序方法叫 sort(), sort() 方法有如下几个特性：</p>
 <ul>
-<li>默认升序</li>
-<li>会改变原数组</li>
-<li>排序是根据字符串首字母的 unicode 码进行排序的</li>
+<li>  默认升序</li>
+<li>  会改变原数组</li>
+<li>  排序是根据字符串首字母的 unicode 码进行排序的</li>
 </ul>
 <p>先来看几个小例子</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span><span class="number">1</span>、数字数组</span><br><span class="line">[<span class="number">3</span>,<span class="number">20</span>,<span class="number">11</span>].sort() <span class="regexp">//</span>输出 [<span class="number">11</span>, <span class="number">20</span>, <span class="number">3</span>]</span><br><span class="line"><span class="regexp">//</span><span class="number">2</span>、字符串数组</span><br><span class="line">[<span class="string">&quot;3&quot;</span>,<span class="string">&quot;20&quot;</span>,<span class="string">&quot;11&quot;</span>].sort() <span class="regexp">//</span> [<span class="string">&quot;11&quot;</span>, <span class="string">&quot;20&quot;</span>, <span class="string">&quot;3&quot;</span>]</span><br><span class="line">[<span class="string">&#x27;orange&#x27;</span>,<span class="string">&#x27;banana&#x27;</span>,<span class="string">&#x27;apple&#x27;</span>].sort() <span class="regexp">//</span>[<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;banana&quot;</span>, <span class="string">&quot;orange&quot;</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、数字数组</span></span><br><span class="line">[<span class="number">3</span>,<span class="number">20</span>,<span class="number">11</span>].sort() <span class="comment">//输出 [11, 20, 3]</span></span><br><span class="line"><span class="comment">//2、字符串数组</span></span><br><span class="line">[<span class="string">&quot;3&quot;</span>,<span class="string">&quot;20&quot;</span>,<span class="string">&quot;11&quot;</span>].sort() <span class="comment">// [&quot;11&quot;, &quot;20&quot;, &quot;3&quot;]</span></span><br><span class="line">[<span class="string">&#x27;orange&#x27;</span>,<span class="string">&#x27;banana&#x27;</span>,<span class="string">&#x27;apple&#x27;</span>].sort() <span class="comment">//[&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;]</span></span><br></pre></td></tr></table></figure>
 
 <p>可以看到无论是数字数组还是字符串数组，都是按照字符的 UTF-16 编码进行排序的。显然，对于一个数字数组而言，我们预期它是按照数字的大小来排序，而不是按照字符编码顺序排序，那么我们如何使用 sort() 方法来进行我们预期的排序呢？这时候就需要用到 compareFunction (比值函数)了。</p>
 <h2 id="1-比值函数-compareFunction"><a href="#1-比值函数-compareFunction" class="headerlink" title="1. 比值函数 compareFunction"></a>1. 比值函数 compareFunction</h2><p>compareFunction 是 sort() 方法的一个可选参数，我们可以利用该函数来指定数组的排序顺序。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr<span class="selector-class">.sort</span>(<span class="selector-attr">[compareFunction]</span>) <span class="comment">//compareFunction是可选参数</span></span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.sort([compareFunction]) <span class="comment">//compareFunction是可选参数</span></span><br></pre></td></tr></table></figure>
 
 <p>如果 compareFunction 没有提供的话，sort() 将会把数组元素转化为字符串，并按照 UTF-16 编码的顺序对元素进行排序，这也就是 [3,20,11].sort() //输出 [11, 20, 3] 的原因。</p>
 <p>如果 compareFunction 提供了，那么数组元素将会按照 compareFunction 的返回值进行排序：</p>
