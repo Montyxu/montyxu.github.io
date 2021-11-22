@@ -20,17 +20,27 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="环视顺序环视与逆序环视：正则表达式的匹配是从左至右的，如果要判断某个位置的右边是否满足某个条件，则是顺序环视，反之，如果要判断某个位置的左边是否满足某个条件，则是逆序环视。  环视匹配的是位置，不会消耗字符 举例》》》》 表达式：肯定的顺序环视：(?&#x3D;xxx)否定的顺序环视：(?!xxx)逆序环视：(?&lt;&#x3D;xxx)否定的逆序环视：(?&lt;!xxx) 以排队为例，通俗地解释环视的含义 X">
+  <meta name="description" content="1. 环视顺序环视与逆序环视：正则表达式的匹配是从左至右的，如果要判断某个位置的右边是否满足某个条件，则是顺序环视，反之，如果要判断某个位置的左边是否满足某个条件，则是逆序环视。  环视匹配的是位置，不会消耗字符  表达式：  肯定的顺序环视：(?&#x3D;xxx) 否定的顺序环视：(?!xxx) 逆序环视：(?&lt;&#x3D;xxx) 否定的逆序环视：(?&lt;!xxx)  以排队为例，通俗地解释环视的含义">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式之环视">
 <meta property="og:url" content="http://example.com/2021/11/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%8B%E7%8E%AF%E8%A7%86/index.html">
 <meta property="og:site_name" content="Montyxu的个人博客">
-<meta property="og:description" content="环视顺序环视与逆序环视：正则表达式的匹配是从左至右的，如果要判断某个位置的右边是否满足某个条件，则是顺序环视，反之，如果要判断某个位置的左边是否满足某个条件，则是逆序环视。  环视匹配的是位置，不会消耗字符 举例》》》》 表达式：肯定的顺序环视：(?&#x3D;xxx)否定的顺序环视：(?!xxx)逆序环视：(?&lt;&#x3D;xxx)否定的逆序环视：(?&lt;!xxx) 以排队为例，通俗地解释环视的含义 X">
+<meta property="og:description" content="1. 环视顺序环视与逆序环视：正则表达式的匹配是从左至右的，如果要判断某个位置的右边是否满足某个条件，则是顺序环视，反之，如果要判断某个位置的左边是否满足某个条件，则是逆序环视。  环视匹配的是位置，不会消耗字符  表达式：  肯定的顺序环视：(?&#x3D;xxx) 否定的顺序环视：(?!xxx) 逆序环视：(?&lt;&#x3D;xxx) 否定的逆序环视：(?&lt;!xxx)  以排队为例，通俗地解释环视的含义">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/regex/image1.png">
+<meta property="og:image" content="http://example.com/images/regex/image2.png">
+<meta property="og:image" content="http://example.com/images/regex/image3.png">
+<meta property="og:image" content="http://example.com/images/regex/image4.png">
+<meta property="og:image" content="http://example.com/images/regex/image5.png">
+<meta property="og:image" content="http://example.com/images/regex/image6.png">
+<meta property="og:image" content="http://example.com/images/regex/image7.png">
+<meta property="og:image" content="http://example.com/images/regex/image8.png">
+<meta property="og:image" content="http://example.com/images/regex/image9.png">
 <meta property="article:published_time" content="2021-11-22T08:35:29.000Z">
-<meta property="article:modified_time" content="2021-11-22T08:36:33.583Z">
+<meta property="article:modified_time" content="2021-11-22T08:48:15.621Z">
 <meta property="article:author" content="Montyxu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/regex/image1.png">
 
 <link rel="canonical" href="http://example.com/2021/11/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%8B%E7%8E%AF%E8%A7%86/">
 
@@ -185,7 +195,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-11-22 16:35:29 / 修改时间：16:36:33" itemprop="dateCreated datePublished" datetime="2021-11-22T16:35:29+08:00">2021-11-22</time>
+              <time title="创建时间：2021-11-22 16:35:29 / 修改时间：16:48:15" itemprop="dateCreated datePublished" datetime="2021-11-22T16:35:29+08:00">2021-11-22</time>
             </span>
 
           
@@ -199,29 +209,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ol>
-<li>环视<br>顺序环视与逆序环视：<br>正则表达式的匹配是从左至右的，如果要判断某个位置的右边是否满足某个条件，则是顺序环视，反之，如果要判断某个位置的左边是否满足某个条件，则是逆序环视。</li>
-</ol>
-<p>环视匹配的是位置，不会消耗字符 举例》》》》</p>
-<p>表达式：<br>肯定的顺序环视：(?=xxx)<br>否定的顺序环视：(?!xxx)<br>逆序环视：(?&lt;=xxx)<br>否定的逆序环视：(?&lt;!xxx)</p>
-<p>以排队为例，通俗地解释环视的含义</p>
+        <h2 id="1-环视"><a href="#1-环视" class="headerlink" title="1. 环视"></a>1. 环视</h2><p>顺序环视与逆序环视：<br>正则表达式的匹配是从左至右的，如果要判断某个位置的右边是否满足某个条件，则是顺序环视，反之，如果要判断某个位置的左边是否满足某个条件，则是逆序环视。</p>
+<blockquote>
+<p>环视匹配的是位置，不会消耗字符</p>
+</blockquote>
+<p>表达式：</p>
+<ul>
+<li>肯定的顺序环视：(?=xxx)</li>
+<li>否定的顺序环视：(?!xxx)</li>
+<li>逆序环视：(?&lt;=xxx)</li>
+<li>否定的逆序环视：(?&lt;!xxx)</li>
+</ul>
+<p>以排队为例，通俗地解释环视的含义<br><img src="/images/regex/image1.png" alt="image.png"></p>
 <p>X 只记得他后面是 C 同学，因此，他需要先找到 C，然后站在 C 的前面即可<br>用正则表达式可以表示为：(?=C)<br>首先我们需要知道环视都是以(?作为开头的，然后接下来的一到两个符号表明是那种环视，再然后就是需要满足的条件，最后是一个)表示结束。(?=条件)可以这样理解，?表示疑问，=表示是否满足匹配。也就是当前位置是否满足给出的条件。</p>
+<p><img src="/images/regex/image2.png" alt="image.png"></p>
 <p>X 不想站在 C 同学的前面，其他任何位置都可以<br>用正则表达式可以表示为：(?!C)</p>
+<p><img src="/images/regex/image3.png" alt="image.png"></p>
 <p>X 只记得他的前面是 C 同学，因此，他需要找到 C，然后站到 C 的后面即可<br>用正则表达式可以表示为：(?&lt;=C)<br>(?&lt;=条件)可以这样理解，?表示疑问，&lt;表示方向是当前位置的左边，=表示是否满足匹配。也就是当前位置的左边是否满足给出的条件。</p>
+<p><img src="/images/regex/image4.png" alt="image.png"></p>
 <p>X 不想 C 同学站在他的前面，其他同学都可以，因此，他可以找一个不是 C 同学后面的位置站<br>用正则表达式可以表示为：(?&lt;!C)</p>
-<p>应用<br>千分位的处理：给数字的千分位加逗号<br>以 123456789 为例<br>思路：我们需要匹配一些位置来放置逗号，什么位置呢？即从后往前，每隔三位数的位置，并且该位置的左边必须要有数字。<br>首先写一个可以匹配三位数的位置，我们可以运用前面介绍的肯定的顺序环视来写，即<br>(?=\d{3})</p>
-<p>这样匹配出来的位置有 7 个，显然，有一些匹配出来的位置不是我们想要的，例如数字 1 的前面位置、4 跟 5 之间、5 跟 6 之间等等，那么如何排除我们非预期内的位置呢？不妨试试把字符串的结尾匹配加入进来，然后看看匹配后的结果。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>千分位的处理：给数字的千分位加逗号<br>以 123456789 为例<br>思路：我们需要匹配一些位置来放置逗号，什么位置呢？即从后往前，每隔三位数的位置，并且该位置的左边必须要有数字。<br>首先写一个可以匹配三位数的位置，我们可以运用前面介绍的肯定的顺序环视来写，即<br>(?=\d{3})<br><img src="/images/regex/image5.png" alt="image.png"></p>
+<p>这样匹配出来的位置有 7 个，显然，有一些匹配出来的位置不是我们想要的，例如数字 1 的前面位置、4 跟 5 之间、5 跟 6 之间等等，那么如何排除我们非预期内的位置呢？不妨试试把字符串的结尾匹配加入进来，然后看看匹配后的结果。<br><img src="/images/regex/image6.png" alt="image.png"></p>
 <p>把字符串结尾的限制加入进来后，我们发现确实过滤了很多我们不需要的位置，但是目前的结果仍然是不对的，比如预期的 3 和 4 之间的位置没有匹配出来，那应该如何处理呢？这时候我们再回顾一下我们的问题，找千分位，也就是从数字的末尾开始，每隔三位即第 3 位、第 6 位、第 9 位前面应该加上逗号，这些需要匹配的位置都是 3 的倍数，因此我们可以用正则表达式的量词来解决这个问题。+作用于前面用括号括起来的(\d{3})，表示三位数字可以重复 1 次或多次。加上量词后来看下结果。</p>
-<p>可以看到目前的结果基本是我们预期内的了，但还需要注意一点的是，匹配出来的位置前面必须要有数字。运用前面介绍的环视，很容易可以想到肯定的逆序环视，即我需要匹配这样一个位置，该位置的左边必须是数字，即(?&lt;=\d). 这样便可以过滤掉开头的位置了。</p>
-<p>除了运用肯定的逆序环视可以过滤开头的位置，我们还可以用 \B 来处理，\B 是用来匹配不是单词开头或结束的位置，相比于 (?&lt;=\d) 更为简洁些。</p>
-<ol start="2">
-<li>量词</li>
-</ol>
-<p>正则表达式默认是贪婪模式，量词都会尽可能地重复多次。<br>懒惰模式： 在量词后面加一个 ? , 所以匹配模式变为 *? 或 +?，甚至将 ‘?’ 变为 ??。</p>
+<p><img src="/images/regex/image7.png" alt="image.png"></p>
+<p>可以看到目前的结果基本是我们预期内的了，但还需要注意一点的是，匹配出来的位置前面必须要有数字。运用前面介绍的环视，很容易可以想到肯定的逆序环视，即我需要匹配这样一个位置，该位置的左边必须是数字，即(?&lt;=\d). 这样便可以过滤掉开头的位置了。<br><img src="/images/regex/image8.png" alt="image.png"></p>
+<p>除了运用肯定的逆序环视可以过滤开头的位置，我们还可以用 \B 来处理，\B 是用来匹配不是单词开头或结束的位置，相比于 (?&lt;=\d) 更为简洁些。<br><img src="/images/regex/image9.png" alt="image.png"></p>
+<h2 id="2-量词"><a href="#2-量词" class="headerlink" title="2. 量词"></a>2. 量词</h2><p>正则表达式默认是贪婪模式，量词都会尽可能地重复多次。<br>懒惰模式： 在量词后面加一个 ? , 所以匹配模式变为 *? 或 +?，甚至将 ‘?’ 变为 ??。</p>
 <p>工具<br>正则表达式可视化工具：<a target="_blank" rel="noopener" href="https://jex.im/regulex">https://jex.im/regulex</a><br>练习正则表达式的网站：<a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a></p>
-<p>手机号格式化<br>举另外一个小例子，例如现在需要将手机号码 xxxxxxxxxxx 格式化为 xxx-xxxx-xxxx 的形式，假设输入的手机号是合法的（11 位），我们该如何格式化呢？<br>不难发现，有两个解题思路，第一种，最笨的就是把 11 位数字分成三部分，即按顺序分别匹配三位数字、四位数字、四位数字，并将每部分后面添加一个‘-’，就可以完成我们的格式化了<br>第二种，找位置，分别找到需要分隔的位置，然后将‘-’插进去<br>下面就来依次来看看这两个方法吧</p>
-<p>匹配字符：</p>
-<p>‘13888888888’.replace(/^(\d{3})(\d{4})(\d{4})/g, ‘$1-$2-$3’);<br>//“138-8888-8888”<br>‘13888888888’.replace(/(?=(\d{4})+$)/g, ‘-‘);<br>//“138-8888-8888”</p>
+<p>手机号格式化<br>举另外一个小例子，例如现在需要将手机号码 xxxxxxxxxxx 格式化为 xxx-xxxx-xxxx 的形式，假设输入的手机号是合法的（11 位），我们该如何格式化呢？<br>不难发现，有两个解题思路，第一种，最笨的就是把 11 位数字分成三部分，即按顺序分别匹配三位数字、四位数字、四位数字，并将每部分后面添加一个‘-’，就可以完成我们的格式化了<br>第二种，找位置，分别找到需要分隔的位置，然后将‘-’插进去</p>
+<p>下面就来依次来看看这两个方法吧<br>匹配字符：<br>‘13888888888’.replace(/^(\d{3})(\d{4})(\d{4})/g, ‘$1-$2-$3’);<br>//“138-8888-8888”<br>‘13888888888’.replace(/(?=(\d{4})+$)/g, ‘-‘);<br>//“138-8888-8888”</p>
 
     </div>
 
@@ -299,6 +315,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E8%A7%86"><span class="nav-number">1.</span> <span class="nav-text">1. 环视</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%87%8F%E8%AF%8D"><span class="nav-number">3.</span> <span class="nav-text">2. 量词</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
